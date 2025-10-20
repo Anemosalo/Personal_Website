@@ -8,7 +8,7 @@ const Hero = () => {
 
   const lines = [
     ">_ Hello, I'm Alexandros Anemos Aloupis",
-    ">_ CS Student @ ΠΑΠΕΙ | Future Software Engineer",
+    ">_ CS Student @ University of Piraeus | Future Software Engineer",
     ">_ Initiating system..."
   ];
 
