@@ -1,6 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import { Award, ExternalLink, X } from 'lucide-react';
 
+// ✅ Import images correctly so Vite can bundle them
+import CS50x from '../assets/CS50x.png';
+import CS50P from '../assets/CS50P.png';
+
 const Certifications = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [commandTyped, setCommandTyped] = useState('');
@@ -10,26 +14,28 @@ const Certifications = () => {
 
   const command = '>_ fetch --certifications';
 
+  // ✅ Replace imageName strings with actual imported paths
   const certifications = [
     {
       title: 'CS50x – Introduction to Computer Science',
       issuer: 'Harvard University',
       date: 'September 2025',
-      imageName: 'CS50x.png',
+      image: CS50x,
     },
     {
       title: 'CS50P – Introduction to Programming with Python',
       issuer: 'Harvard University',
       date: 'October 2025',
-      imageName: 'CS50P.png',
+      image: CS50P,
     },
   ];
 
   // --- Animate section entrance ---
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) setIsVisible(true);
-    }, { threshold: 0.2 });
+    const observer = new IntersectionObserver(
+      ([entry]) => entry.isIntersecting && setIsVisible(true),
+      { threshold: 0.2 }
+    );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
@@ -80,7 +86,7 @@ const Certifications = () => {
           {certifications.slice(0, visibleCards).map((cert, index) => (
             <div
               key={index}
-              onClick={() => setSelectedImage(`src/assets/${cert.imageName}`)}
+              onClick={() => setSelectedImage(cert.image)}
               className="cert-card bg-gradient-to-br from-[#0B1020] to-[#05080F] border border-[#00FFF0]/30 rounded-lg p-6 hover:border-[#00FFF0] transition-all duration-300 hover:shadow-glow cursor-pointer group"
               style={{
                 animation: `fadeInUp 0.5s ease-out ${index * 0.1}s both`,
@@ -93,13 +99,15 @@ const Certifications = () => {
 
               <div className="aspect-video rounded border border-[#00FFF0]/20 mb-4 overflow-hidden">
                 <img
-                  src={`src/assets/${cert.imageName}`}
+                  src={cert.image}
                   alt={cert.title}
                   className="w-full h-full object-cover brightness-75 contrast-90 group-hover:brightness-100 group-hover:contrast-100 hover:scale-105 transition-all duration-500"
                 />
               </div>
 
-              <h3 className="text-lg font-bold mb-2 text-[#F8F8FF]">{cert.title}</h3>
+              <h3 className="text-lg font-bold mb-2 text-[#F8F8FF]">
+                {cert.title}
+              </h3>
               <p className="text-sm text-[#00FFF0] mb-1">{cert.issuer}</p>
               <p className="text-xs text-gray-400">{cert.date}</p>
             </div>
@@ -115,7 +123,7 @@ const Certifications = () => {
         >
           <div
             className="relative max-w-4xl w-[90%] rounded-lg overflow-hidden"
-            onClick={(e) => e.stopPropagation()} // prevent click from closing when clicking inside
+            onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={closeModal}

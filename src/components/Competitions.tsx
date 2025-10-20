@@ -1,6 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 import { Trophy, Target, X } from 'lucide-react';
 
+// ✅ Import images properly for Vite bundling
+import Arximidis2025 from '../assets/Arximidis2025.png';
+import Euclid2024 from '../assets/Euclid2024.png';
+import EconOlympiadCer from '../assets/EconOlympiadCer.png';
+
 const Competitions = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [commandTyped, setCommandTyped] = useState('');
@@ -11,39 +16,44 @@ const Competitions = () => {
 
   const command = '>_ display --competitions';
 
+  // ✅ Use imported images instead of strings
   const competitions = [
     {
       title: 'Archimedes National Math Competition Finalist',
       organizer: 'Greek Mathematical Society',
       year: '2025',
-      description: 'Advanced to national finals in prestigious mathematics competition.',
-      imageName: 'Arximidis2025.png',
+      description:
+        'Advanced to national finals in prestigious mathematics competition.',
+      image: Arximidis2025,
       icon: Trophy,
     },
     {
-      title: 'Euclid National Math Comptetition Semi-Finalist',
+      title: 'Euclid National Math Competition Semi-Finalist',
       organizer: 'Greek Mathematical Society',
       year: '2024',
-      description: 'Advanced to national semi-finals in prestigious mathematics competition.',
-      imageName: 'Euclid2024.png',
+      description:
+        'Advanced to national semi-finals in prestigious mathematics competition.',
+      image: Euclid2024,
       icon: Trophy,
     },
     {
       title: 'Thales Mathematics Competition',
       organizer: 'Greek Mathematical Society',
       year: '2023',
-      description: 'Entry-level round of the national math competition series.',
+      description:
+        'Entry-level round of the national math competition series.',
       details:
         'This was the first stage of the Olympiad which consists of Thales, Euclid and Archimedes stages. No certificatation was issued for this stage.',
-      imageName: '', // no certificate image
+      image: '', // no certificate image
       icon: Target,
     },
     {
       title: 'Economics Olympiad Regional Qualifier',
       organizer: 'National Economics Association',
       year: '2025',
-      description: 'Qualified for regional competition in economic theory national competition.',
-      imageName: 'EconOlympiadCer.png',
+      description:
+        'Qualified for regional competition in economic theory national competition.',
+      image: EconOlympiadCer,
       details:
         'Advanced to the national competition in economic theory up to the regionals. No official website for advancements.',
       icon: Trophy,
@@ -83,8 +93,7 @@ const Competitions = () => {
   }, [commandTyped]);
 
   // --- Handlers ---
-  const handleImageClick = (imageName: string) =>
-    imageName && setSelectedImage(`src/assets/${imageName}`);
+  const handleImageClick = (image: string) => image && setSelectedImage(image);
   const handleDetailsClick = (details: string) => setModalDetails(details);
   const closeAllModals = () => {
     setSelectedImage(null);
@@ -106,7 +115,7 @@ const Competitions = () => {
         <div className="grid md:grid-cols-2 gap-6">
           {competitions.slice(0, visibleCards).map((comp, index) => {
             const Icon = comp.icon;
-            const noImage = !comp.imageName;
+            const noImage = !comp.image;
             return (
               <div
                 key={index}
@@ -123,7 +132,7 @@ const Competitions = () => {
                   onClick={() =>
                     noImage
                       ? handleDetailsClick(comp.details || '')
-                      : handleImageClick(comp.imageName)
+                      : handleImageClick(comp.image)
                   }
                   className={`aspect-video rounded border mb-4 overflow-hidden ${
                     noImage
@@ -135,14 +144,16 @@ const Competitions = () => {
                     <span>No certificate issued</span>
                   ) : (
                     <img
-                      src={`src/assets/${comp.imageName}`}
+                      src={comp.image}
                       alt={comp.title}
                       className="w-full h-full object-cover brightness-75 contrast-90 group-hover:brightness-100 group-hover:contrast-100 hover:scale-105 transition-all duration-500"
                     />
                   )}
                 </div>
 
-                <h3 className="text-lg font-bold mb-2 text-[#F8F8FF]">{comp.title}</h3>
+                <h3 className="text-lg font-bold mb-2 text-[#F8F8FF]">
+                  {comp.title}
+                </h3>
                 <p className="text-sm text-[#FF00C8] mb-2">{comp.organizer}</p>
                 <p className="text-xs text-gray-400">{comp.description}</p>
 
@@ -150,7 +161,7 @@ const Competitions = () => {
                   onClick={() =>
                     noImage
                       ? handleDetailsClick(comp.details || '')
-                      : handleImageClick(comp.imageName)
+                      : handleImageClick(comp.image)
                   }
                   className="mt-4 text-xs text-[#00FFF0] border border-[#00FFF0]/30 px-3 py-1 rounded hover:bg-[#00FFF0] hover:text-[#05080F] transition-all"
                 >
