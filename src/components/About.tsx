@@ -62,7 +62,7 @@ const About = () => {
 
           <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
             <p className="text-lg leading-relaxed mb-8 text-gray-300">
-              I'm a Computer Science student at the University of Piraeus, passionate about algorithms, AI, Data, Mathematics.
+              I'm a Computer Science student at the University of Piraeus, passionate about algorithms, AI, Data and Mathematics.
               I've explored fields from mathematical modeling to software engineering, currently developing a creative and research-driven project called DSM (Dead-Space Mapping).
             </p>
 
