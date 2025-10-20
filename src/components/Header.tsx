@@ -23,7 +23,7 @@ const Header = () => {
         <div className="text-xl font-bold flex items-center gap-1">
           <span className="text-[#00FFF0]">&gt;</span>
           <span className={blink ? 'opacity-100' : 'opacity-0'}>_</span>
-          <span className="ml-2">ANEMOS</span>
+          <span className="ml-2">Hello World</span>
         </div>
 
         <nav className="hidden md:flex gap-8">

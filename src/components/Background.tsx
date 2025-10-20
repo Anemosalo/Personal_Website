@@ -6,7 +6,13 @@ interface BackgroundProps {
 
 const Background = ({ scrollProgress }: BackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  // Track scroll without re-initializing particles on re-render
+  const scrollRef = useRef(0);
+  useEffect(() => {
+    scrollRef.current = scrollProgress;
+  }, [scrollProgress]);
 
+  // Initialize particle system once (mount-only)
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -36,12 +42,12 @@ const Background = ({ scrollProgress }: BackgroundProps) => {
     }
 
     const hueBase = 200;
-    const hueShift = (scrollProgress / 100) * 40;
 
     const animate = () => {
       ctx.fillStyle = 'rgba(5, 8, 15, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      const hueShift = (scrollRef.current / 100) * 40;
       const currentHue = hueBase + hueShift;
 
       particles.forEach((p) => {
@@ -69,7 +75,7 @@ const Background = ({ scrollProgress }: BackgroundProps) => {
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [scrollProgress]);
+  }, []);
 
   return (
     <canvas

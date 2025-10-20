@@ -8,7 +8,7 @@ const Hero = () => {
 
   const lines = [
     ">_ Hello, I'm Alexandros Anemos Aloupis",
-    ">_ CS Student @ University of Piraeus | Future Software Engineer",
+    ">_ CS Student @ University of Piraeus | Future Artificial Inteligence Engineer",
     ">_ Initiating system..."
   ];
 
@@ -69,11 +69,12 @@ const Hero = () => {
           </button>
         </div>
 
-        <div className="mt-16 floating-equations text-xs md:text-sm opacity-30">
-          <span className="equation">∑(x∈ℝ)</span>
-          <span className="equation">{'{if k_t > 2^b_t:}'}</span>
-          <span className="equation">f(x) = ∫ e^(-x²)dx</span>
-        </div>
+<div className="mt-16 floating-equations text-xs md:text-sm opacity-30">
+  <span className="equation">E = ∑ p(x) · log p(x)</span>
+  <span className="equation">ŷ = σ(Wx + b)</span>
+  <span className="equation">𝛁J(θ) = E[∂ log π_θ(a|s)/∂θ · R]</span>
+</div>
+
       </div>
     </section>
   );

@@ -3,35 +3,57 @@ import { useEffect, useState, useRef } from 'react';
 const Awards = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [hasPlayed, setHasPlayed] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<number | null>(null);
 
   const timeline = [
-    { year: '2025', achievement: 'Archimedes Finalist' },
-    { year: '2024', achievement: 'CS50x Certificate' },
-    { year: '2024', achievement: 'Euclid Competition' },
-    { year: '2023', achievement: 'Economics Olympiad' },
-  ];
+  { year: 'Oct 2025', achievement: 'CS50P Certificate (Harvard University, edX)' },
+  { year: 'Sep 2025', achievement: 'CS50x Certificate (Harvard University, edX)' },
+  { year: 'Jul 2025', achievement: 'Admitted to University of Piraeus — BSc in Computer Science' },
+  { year: 'Apr 2025', achievement: 'Economics Olympiad — Regional Qualifier' },
+  { year: 'Feb 2025', achievement: 'Archimedes National Mathematics Finalist' },
+  { year: '2024', achievement: 'Euclid National Mathematics Semi-Finalist' },
+  { year: '2023', achievement: 'Thales National Mathematics Competition Participant' },
+];
+
+  // Restore once-per-session guard
+  useEffect(() => {
+    const played = sessionStorage.getItem('awardsAnalyzingPlayed');
+    if (played === 'true') {
+      setHasPlayed(true);
+      setIsVisible(true);
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !hasPlayed) {
+          // Play analyzing only once
           setLoading(true);
-          setTimeout(() => {
+          if (timerRef.current) window.clearTimeout(timerRef.current);
+          timerRef.current = window.setTimeout(() => {
             setLoading(false);
             setIsVisible(true);
+            setHasPlayed(true);
           }, 1000);
         }
       },
       { threshold: 0.3 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => {
+      observer.disconnect();
+      if (timerRef.current) window.clearTimeout(timerRef.current);
+    };
+  }, [hasPlayed]);
 
-    return () => observer.disconnect();
-  }, []);
+  useEffect(() => {
+    if (hasPlayed) sessionStorage.setItem('awardsAnalyzingPlayed', 'true');
+  }, [hasPlayed]);
 
   return (
     <section
@@ -40,7 +62,7 @@ const Awards = () => {
     >
       <div className="max-w-4xl mx-auto w-full">
         {loading && (
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 transition-opacity duration-200 opacity-100">
             <div className="text-[#00FFF0] text-lg mb-4">
               <span className="animate-pulse">&gt;_ analyzing system...</span>
             </div>
