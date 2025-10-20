@@ -3,9 +3,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/Personal_Website/', // ✅ this tells Vite to prefix all assets correctly
-  build: {
-    outDir: 'docs', // ✅ ensures GitHub Pages can serve from /docs
-  },
+  base: '/',           // ✅ for custom domains (root hosting)
+  build: { outDir: 'docs' },
   optimizeDeps: { exclude: ['lucide-react'] },
 });
