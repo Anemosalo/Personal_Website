@@ -62,8 +62,8 @@ const About = () => {
 
           <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
             <p className="text-lg leading-relaxed mb-8 text-gray-300">
-              I'm a Computer Science student at the University of Piraeus, passionate about algorithms, AI, and data systems.
-              I've explored fields from mathematical modeling to software engineering, developing both creative and research-driven projects like DSM (Dead-Space Mapping).
+              I'm a Computer Science student at the University of Piraeus, passionate about algorithms, AI, Data, Mathematics.
+              I've explored fields from mathematical modeling to software engineering, currently developing a creative and research-driven project called DSM (Dead-Space Mapping).
             </p>
 
             <div className="space-y-4">
@@ -79,7 +79,7 @@ const About = () => {
 
               <div className="flex items-center gap-3 p-4 bg-[#0B1020]/50 border border-[#00FFF0]/20 rounded hover:border-[#00FFF0]/50 transition-all">
                 <GraduationCap className="w-5 h-5 text-[#00FFF0]" />
-                <span>Studying in parallel with part-time work (Remote-ready)</span>
+                <span>Studying for University while also being able to work part time.</span>
               </div>
             </div>
           </div>
